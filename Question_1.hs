@@ -7,10 +7,10 @@ dayOfWeek y m d
 	| otherwise = (d + t1 + k + t2 + t3 + (5 * j)) `mod` 7
 	where 
 		n = m+12
-		j = floor (y/100) 
+		j = div y 100 
 		k = y `mod` 100
-		t1 = floor (fromIntegral (13*(m+1))/5.0)
-		t2 = floor (k/4)
-		t3 = (floor (y/100)) / 4.0
-		t4 = floor (fromIntegral (13*(n+1))/5.0)
+		t1 = div (13*(m+1)) 5
+		t2 = div k 4
+		t3 = div j 4
+		t4 = div (13*(n+1)) 5
 	
