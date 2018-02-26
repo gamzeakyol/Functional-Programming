@@ -1,4 +1,4 @@
-## Istanbul Technical University ##
+## Istanbul Technical University
 ## Functional Programming Course Projects and Homeworks ##
 **Gamze Akyol - 150140142**
 
