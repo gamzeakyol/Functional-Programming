@@ -1,0 +1,13 @@
+365 * 400 = 146000
+
+# of leap days in 400 years = 97
+146000 + 97  = 146097
+
+146097 / 7 = 20871
+
+Yes, the number of weeks in 400 years is an integer value which is 20871.
+
+As the number of weeks is an integer value in 400 years, 
+the days of the week repeat in this 400 year. So, the 400 year can be considered as cycle.
+There are 400 of an exact day (e.g. 1 January) in this cycle. 
+400 could not be divided by 7 (which is kind of days, monday to sunday), so all the days are not equally possible.
