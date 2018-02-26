@@ -19,6 +19,8 @@ dayOfWeek y m d
 		t3' = div j' 4
 
 
+{-- Tail recursive version of sundays1 function, acc is added. --}
+
 sundays1 :: Integer -> Integer -> Integer
 sundays1 start end = sundays' start 1 0
 	where
