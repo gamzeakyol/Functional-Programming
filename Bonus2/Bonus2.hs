@@ -16,21 +16,21 @@ cardColor :: Card -> Color
 cardColor card = case card of 
 	Card {suit = Clubs}   -> Black 
 	Card {suit = Spades}  -> Black 
-	_      			          -> Red
+	_      		      -> Red
   
 -- Question 2
 cardValue :: Card -> Int
 cardValue card = case card of 
-	Card {rank = Ace}			-> 11 
+	Card {rank = Ace}	        -> 11 
 	Card {rank = Num 2} 		-> 2
-	Card {rank = Num 3}			-> 3
+	Card {rank = Num 3}	        -> 3
 	Card {rank = Num 4} 		-> 4
 	Card {rank = Num 5} 		-> 5
 	Card {rank = Num 6} 		-> 6
 	Card {rank = Num 7} 		-> 7
 	Card {rank = Num 8} 		-> 8
 	Card {rank = Num 9} 		-> 9
-	_      						      -> 10
+	_      			        -> 10
 
 -- Question 3
 -- raising an error will be added	
