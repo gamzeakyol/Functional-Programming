@@ -39,4 +39,35 @@ removeCard cs c
 	| c == head cs = tail cs
 	| otherwise    = (head cs) : (removeCard (tail cs) c)
 	
+-- Question 4
+allSameColor :: [Card] -> Bool
+allSameColor cs
+	| tail cs             == []                        = True
+	| cardColor (head cs) /= cardColor (head(tail cs)) = False
+	| otherwise 					   = allSameColor (tail cs)
+
+-- Question 5
+sumCards :: [Card] -> Int
+sumCards cs = sumCardsHelper cs 0
+	where 
+		sumCardsHelper :: [Card] -> Int -> Int
+		sumCardsHelper cs' acc
+			| cs' == [] = acc
+			| otherwise = sumCardsHelper (tail cs') (cardValue (head cs') + acc)  
+
+-- Question 6
+score :: [Card] -> Int -> Int
+score cs goal
+	| allSameColor cs = (preliminaryResult cs goal) `div` 2
+	| otherwise       = preliminaryResult cs goal
+		where 
+			preliminaryResult :: [Card] -> Int -> Int
+			preliminaryResult cs goal
+				| sum > goal         = 3 * (sum - goal)
+				| otherwise          = goal - sum
+					where
+						sum = sumCards cs
+						
+-- Question 7
+data State = HeldCards [Card] | CardList [Card]
 
