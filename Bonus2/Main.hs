@@ -78,8 +78,6 @@ runGame cardlist movelist goal = runGameHelper (heldcards, cardlist, movelist)
 			(_, _, ((Discard card):ms))   -> runGameHelper ((removeCard heldcards card), cardlist, (tail movelist))
 			(_, [], (Draw:ms))            -> score heldcards goal
 			(_, _, (Draw:ms))             -> if (sumCards heldcards) > goal then (score heldcards goal) else runGameHelper (((head cardlist):heldcards), (tail cardlist), (tail movelist))							
-				where
-					ms = tail movelist
 
 -- Question 9
 convertSuit :: Char -> Suit
