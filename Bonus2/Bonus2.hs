@@ -1,4 +1,7 @@
-cardlist = [Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Queen}, Card {suit = Spades, rank = Num 10}]
+import Data.Char (isDigit, digitToInt)
+import System.IO
+
+cardlist = [Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Queen}, Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Num 8}]
 
 data Color = Red | Black
              deriving (Show, Eq)
@@ -10,35 +13,28 @@ data Card = Card { suit :: Suit, rank :: Rank }
             deriving (Show, Eq)
 data Move = Draw | Discard Card
             deriving (Show, Eq)
-			
+
 -- Question 1
 cardColor :: Card -> Color
 cardColor card = case card of 
 	Card {suit = Clubs}   -> Black 
 	Card {suit = Spades}  -> Black 
 	_      		      -> Red
-  
+
 -- Question 2
 cardValue :: Card -> Int
 cardValue card = case card of 
-	Card {rank = Ace}	        -> 11 
-	Card {rank = Num 2} 		-> 2
-	Card {rank = Num 3}	        -> 3
-	Card {rank = Num 4} 		-> 4
-	Card {rank = Num 5} 		-> 5
-	Card {rank = Num 6} 		-> 6
-	Card {rank = Num 7} 		-> 7
-	Card {rank = Num 8} 		-> 8
-	Card {rank = Num 9} 		-> 9
-	_      			        -> 10
+	Card {rank = Num value} 	-> value
+	Card {rank = Ace}	        -> 11
+	_      				-> 10
 
 -- Question 3
--- raising an error will be added	
+-- raise an error will be added	
 removeCard :: [Card] -> Card -> [Card]
 removeCard cs c
 	| c == head cs = tail cs
 	| otherwise    = (head cs) : (removeCard (tail cs) c)
-	
+			
 -- Question 4
 allSameColor :: [Card] -> Bool
 allSameColor cs
@@ -64,10 +60,60 @@ score cs goal
 			preliminaryResult :: [Card] -> Int -> Int
 			preliminaryResult cs goal
 				| sum > goal         = 3 * (sum - goal)
-				| otherwise          = goal - sum
+				| otherwise 	     = goal - sum
 					where
 						sum = sumCards cs
 						
 -- Question 7
-data State = HeldCards [Card] | CardList [Card]
+type State = ([Card], [Card], [Move])
+
+-- Question 8
+runGame :: [Card] -> [Move] -> Int -> Int
+heldcards = []
+runGame cardlist movelist goal = runGameHelper (heldcards, cardlist, movelist)
+	where
+		runGameHelper :: State -> Int
+		runGameHelper state = case state of
+			(_, _, [])		    -> score heldcards goal
+			(_, _, ((Discard card):ms)) -> runGameHelper ((removeCard heldcards card), cardlist, (tail movelist))
+			(_, [], (Draw:ms))          -> score heldcards goal
+			(_, _, (Draw:ms))           -> if (sumCards heldcards) > goal then (score heldcards goal) else runGameHelper (((head cardlist):heldcards), (tail cardlist), (tail movelist))							
+				where
+					ms = tail movelist
+
+-- Question 9
+convertSuit :: Char -> Suit
+convertSuit c
+	| c == 'D' || c == 'd' = Diamonds
+	| c == 'H' || c == 'h' = Hearts
+	| c == 'S' || c == 's' = Spades
+	| c == 'C' || c == 'c' = Clubs
+	| otherwise = error "The suit is unknown"
+
+-- Question 10
+convertRank :: Char -> Rank
+convertRank c
+	| c == 'J' || c == 'j' = Jack
+	| c == 'Q' || c == 'q' = Queen
+	| c == 'K' || c == 'k' = King
+	| c == '1'             = Ace
+	| c == 'T' || c == 't' = Num 10
+	| otherwise            = if (isDigit c) then Num (digitToInt c) else error "The rank is unknown"
+
+-- Question 11
+convertCard :: Char -> Char -> Card
+convertCard s r = Card {suit = convertSuit s, rank = convertRank r}
+				
+-- Question 12
+						  
+-- Question 13
+convertMove :: Char -> Char -> Char -> Move
+convertMove m s r 
+	| m == 'd' || m == 'D' = Draw
+	| m == 'r' || m == 'R' = Discard (convertCard s r)
+	
+-- Question 14
+
+
+-- Question 15
 
