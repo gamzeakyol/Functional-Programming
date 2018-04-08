@@ -1,5 +1,6 @@
 import Data.Char (isDigit, digitToInt)
 
+-- For trying
 cardlist = [Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Queen}, Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Num 8}]
 
 data Color = Red | Black
@@ -129,5 +130,21 @@ readMoves = readMovesHelper []
                                   then return movelist
                                   else do readMovesHelper ((convertMove (line !! 0) (line !! 1) (line !! 2)):movelist)
 
-
 -- Question 15
+main :: IO ()
+main = do 
+    putStrLn "Enter cards:"
+    cards <- readCards
+    putStrLn (show cards)
+    	  
+    putStrLn "Enter moves:"
+    moves <- readMoves
+    putStrLn (show moves)
+		 
+    putStrLn "Enter goal:"
+    line <- getLine
+		  
+    let goal = read line :: Int
+		  
+    let score = runGame cards moves goal
+    putStrLn ("Score: " ++ show score)
