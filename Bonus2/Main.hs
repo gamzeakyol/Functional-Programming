@@ -1,5 +1,4 @@
 import Data.Char (isDigit, digitToInt)
-import System.IO
 
 cardlist = [Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Queen}, Card {suit = Diamonds, rank = Jack}, Card {suit = Hearts, rank = Num 8}]
 
@@ -25,7 +24,7 @@ cardColor card = case card of
 cardValue :: Card -> Int
 cardValue card = case card of 
 	Card {rank = Num value} 	-> value
-	Card {rank = Ace}	        -> 11
+	Card {rank = Ace}		-> 11
 	_      				-> 10
 
 -- Question 3
@@ -74,10 +73,10 @@ runGame cardlist movelist goal = runGameHelper (heldcards, cardlist, movelist)
 	where
 		runGameHelper :: State -> Int
 		runGameHelper state = case state of
-			(_, _, [])		    -> score heldcards goal
-			(_, _, ((Discard card):ms)) -> runGameHelper ((removeCard heldcards card), cardlist, (tail movelist))
-			(_, [], (Draw:ms))          -> score heldcards goal
-			(_, _, (Draw:ms))           -> if (sumCards heldcards) > goal then (score heldcards goal) else runGameHelper (((head cardlist):heldcards), (tail cardlist), (tail movelist))							
+			(_, _, [])		      -> score heldcards goal
+			(_, _, ((Discard card):ms))   -> runGameHelper ((removeCard heldcards card), cardlist, (tail movelist))
+			(_, [], (Draw:ms))            -> score heldcards goal
+			(_, _, (Draw:ms))             -> if (sumCards heldcards) > goal then (score heldcards goal) else runGameHelper (((head cardlist):heldcards), (tail cardlist), (tail movelist))							
 				where
 					ms = tail movelist
 
@@ -105,7 +104,15 @@ convertCard :: Char -> Char -> Card
 convertCard s r = Card {suit = convertSuit s, rank = convertRank r}
 				
 -- Question 12
-						  
+readCards :: IO [Card]
+readCards = readCardsHelper []
+  where
+    readCardsHelper :: [Card] -> IO [Card]
+    readCardsHelper cardlist = do line <- getLine
+                                  if line == "."
+                                  then return cardlist
+                                  else do readCardsHelper ((convertCard (line !! 0) (line !! 1)):cardlist)
+
 -- Question 13
 convertMove :: Char -> Char -> Char -> Move
 convertMove m s r 
@@ -113,7 +120,14 @@ convertMove m s r
 	| m == 'r' || m == 'R' = Discard (convertCard s r)
 	
 -- Question 14
+readMoves :: IO [Move]
+readMoves = readMovesHelper []
+  where
+    readMovesHelper :: [Move] -> IO [Move]
+    readMovesHelper movelist = do line <- getLine
+                                  if line == "."
+                                  then return movelist
+                                  else do readMovesHelper ((convertMove (line !! 0) (line !! 1) (line !! 2)):movelist)
 
 
 -- Question 15
-
