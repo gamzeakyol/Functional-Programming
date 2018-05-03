@@ -40,7 +40,7 @@ dictCharCounts (w:words') = (w, (wordCharCounts w)):(dictCharCounts words')
 -- Q4
 dictWordsByCharCounts :: [(Words, CharacterCount)] -> [[(Words, CharacterCount)]]
 dictWordsByCharCounts []                  = []
-dictWordsByCharCounts ws                  = groupBy ((==) `on` snd) ws
+dictWordsByCharCounts ws                  = groupBy ((==) `on` snd) (sort ws)
 
 
 
