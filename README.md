@@ -5,3 +5,5 @@
 where * = 1:5.
 
 - The solutions of the second bonus homework can be found under Bonus2 folder. All questions are in the same file named Main.hs.
+
+- The solutions of the third bonus homework can be found under Bonus3 folder. All questions are in the same file named Main.hs.
