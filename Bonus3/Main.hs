@@ -8,6 +8,11 @@ type Sentence = [Words]
 
 type CharacterCount = [(Char, Int)]
 
+-- In examples for the functions which are using outputs of another functions, outputs can be also used directly as parameters
+-- instead of making one more function call. 
+-- ex: dictWordsByCharCounts (dictCharCounts ["tea", "all", "ate"]) produces same result with 
+-- dictWordsByCharCounts [("tea",[('a',1),('e',1),('t',1)]),("all",[('a',1),('l',2)]),("ate",[('a',1),('e',1),('t',1)])]
+
 -- Q1
 -- In this function, wordCharCounts uses two helper functions. 
 -- In wordCharCounts', sorted word is filtered according to current character,
