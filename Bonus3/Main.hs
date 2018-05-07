@@ -45,3 +45,29 @@ dictWordsByCharCounts ws = assocs (fromListWith (++) (changeKeys ws))
 		changeKeys :: [(Words, CharacterCount)] -> [(CharacterCount, [Words])]
 		changeKeys [] = []
 		changeKeys ((w, c):ws) = (c, [w]):(changeKeys ws)
+		
+--Q5
+wordAnagrams :: Words -> [(CharacterCount, [Words])] -> [Words]
+wordAnagrams word ws@((c, w):ws')
+	| ws == []                  = []
+	|(wordCharCounts word) == c = w
+	| otherwise 	            = wordAnagrams word ws'
+
+--Q6 
+--charCountsSubsets :: CharacterCount -> [[CharacterCount]]
+	
+--Q7
+subtractCounts :: CharacterCount -> CharacterCount -> CharacterCount
+subtractCounts s1'@((w1, c1):s1) s2'@((w2, c2):s2)
+	| s2' == []                = s1'
+	| (s2 == []) && (w1 == w2) = [(w1, c1-c2)] ++ s1
+	| (s2 == []) && (w1 /= w2) = [(w1, c1)] ++ subtractCounts s1 [(w2, c2)]
+	| w1 == w2                 = [(w1, c1-c2)] ++ subtractCounts s1 s2
+	| otherwise                = [(w1, c1)] ++ subtractCounts s1 s2'
+
+--Q9
+--main :: IO ()
+--main = do 
+--	putStrLn "Enter sentence:"
+--	anagrams <- sentenceAnagrams
+--	putStrLn (show anagrams)
