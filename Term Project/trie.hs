@@ -24,7 +24,8 @@ insertList [] = insert [] empty
 insertList (w:ws) = foldr insert empty (w:ws)
 
 search :: Word -> Trie -> Bool
-search = undefined
+search [] (Trie b c) = b
+search (w:ws) (Trie _ c) = fromMaybe False (fmap (search ws) (M.lookup w c))
 
 getWords :: Trie -> [Word]
 getWords = undefined
