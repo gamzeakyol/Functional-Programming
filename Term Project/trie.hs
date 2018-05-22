@@ -19,7 +19,8 @@ insert (w:ws) (Trie b c) = Trie b newChildren
 				child = fromMaybe empty (M.lookup w c)  
 
 insertList :: [Word] -> Trie
-insertList = undefined
+insertList [] = insert [] empty
+insertList (w:ws) = foldr insert empty (w:ws)
 
 search :: Word -> Trie -> Bool
 search = undefined
