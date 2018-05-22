@@ -48,8 +48,12 @@ search [] (Trie b c) = b
 search (w:ws) (Trie _ c) = fromMaybe False (fmap (search ws) (M.lookup w c))
 
 
-getWords :: Trie -> [Word]
-getWords = undefined
+--getWords :: Trie -> [Word]
+--getWords trie = traverse trie []
+--	where
+--		traverse :: Trie -> [Word] -> [Word]
+--		traverse trie@(Trie True c) acc = acc
+--		traverse trie@(Trie False c) acc = traverse (snd (children trie)) ((fst c)++acc)
 
 prefix :: Word -> Trie -> Maybe [Word]
 prefix = undefined
