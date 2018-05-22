@@ -5,6 +5,7 @@ import System.IO
 import Prelude hiding (Word)
 
 data Trie = Trie {end :: Bool, children :: M.Map Char Trie}
+            deriving (Show, Eq)
 type Word = String
 
 empty :: Trie
