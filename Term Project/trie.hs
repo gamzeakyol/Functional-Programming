@@ -11,8 +11,12 @@ empty :: Trie
 empty = Trie {end = False, children = M.empty}
 
 insert :: Word -> Trie -> Trie
-insert word trie
-	| head word  
+insert [] (Trie _ c)     = Trie True c
+insert (w:ws) (Trie b c) = Trie b newChildren
+	where
+		newChildren = M.insert w (insert ws child) c
+			where 
+				child = fromMaybe empty (M.lookup w c)  
 
 insertList :: [Word] -> Trie
 insertList = undefined
