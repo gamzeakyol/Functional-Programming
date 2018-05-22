@@ -75,7 +75,7 @@ prefix = undefined
 --                            word <- getLine
 --                            let result = search word trie
 --                            if result == True
---						          then putStrLn "\nExists in dictionary!"
+--                                then putStrLn "\nExists in dictionary!"
 --                                else putStrLn "\nNOT exist!"
 --                            else if line == "e"
 --                                then return()
