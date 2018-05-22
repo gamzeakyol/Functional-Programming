@@ -53,3 +53,29 @@ getWords = undefined
 
 prefix :: Word -> Trie -> Maybe [Word]
 prefix = undefined
+
+--I/O operations
+--main :: IO ()
+--main = do 
+--    putStrLn "a) Add Word"
+--    putStrLn "s) Search Word"
+--    putStrLn "f) Find words with prefix"
+--    putStrLn "p) Print all words"
+--    putStrLn "e) Exit"
+--    putStrLn "Enter the action:"
+--    line <- getInput
+--    let trie = empty
+--    if line == "a"
+--        then do putStrLn "Enter word/prefix:"
+--                word <- getLine
+--				  insert word trie
+--                putStrLn "\nNew word is added!"
+--                else if line == "s"
+--                    then do putStrLn "Enter word/prefix:"
+--                            word <- getLine
+--                            let result = search word trie
+--                            if result == True
+--						          then putStrLn "\nExists in dictionary!"
+--                                else putStrLn "\nNOT exist!"
+--                            else if line == "e"
+--                                then return()
